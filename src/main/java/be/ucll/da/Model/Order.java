@@ -1,5 +1,7 @@
 package be.ucll.da.Model;
 
+import be.ucll.da.Implementation.SandwichConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -10,14 +12,15 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String sandwich;
+    @Convert(converter = SandwichConverter.class)
+    private Sandwich sandwich;
     private Date orderdate;
     private BreadType breadType;
     private String phoneNumber;
 
     public Order() {}
 
-    public Order(String sandwich, Date orderdate, BreadType breadType, String phoneNumber) {
+    public Order(Sandwich sandwich, Date orderdate, BreadType breadType, String phoneNumber) {
         this.sandwich = sandwich;
         this.orderdate = orderdate;
         this.breadType = breadType;
@@ -32,11 +35,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getSandwich() {
+    public Sandwich getSandwich() {
         return sandwich;
     }
 
-    public void setSandwich(String sandwich) {
+    public void setSandwich(Sandwich sandwich) {
         this.sandwich = sandwich;
     }
 

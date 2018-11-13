@@ -34,7 +34,7 @@ public class Application {
     @Bean
     public CommandLineRunner OrderCommandLineRunner(OrderRepository orderrepository){
         return (args) -> {
-            orderrepository.save(new Order("Martino", new Date(), BreadType.WRAP,"046848695"));
+            orderrepository.save(new Order(new Sandwich("Martino",new BigDecimal(2.50),"Martino,Ansjovis,Augurk,Ajuin,PikanteSaus"), new Date(), BreadType.WRAP,"046848695"));
         };
     }
 }
