@@ -4,12 +4,12 @@ import be.ucll.da.Database.OrderRepository;
 import be.ucll.da.Database.SandwichRepository;
 import be.ucll.da.Model.Order;
 import be.ucll.da.Model.Sandwich;
+import org.apache.coyote.http2.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,5 +32,17 @@ public class OrderController {
     public Order postOrders(@RequestBody Order order) {
 
         return orderrepository.save(order);
+    }
+    @RequestMapping(value = "/orders")
+    public List<Order> postOrders(@RequestParam("date") String date) {
+        List<Order> orders = new ArrayList<Order>();
+        String[] dateparts = date.split("-");
+        LocalDate givendate = LocalDate.of(Integer.parseInt(dateparts[0]),Integer.parseInt(dateparts[1]),Integer.parseInt(dateparts[2]));
+        for (Order order: orderrepository.findAll()) {
+            if(order.getOrderdate().equals(givendate)){
+                orders.add(order);
+            }
+        }
+        return orders;
     }
 }

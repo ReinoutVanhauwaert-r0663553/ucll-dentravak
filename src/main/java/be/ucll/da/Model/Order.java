@@ -3,7 +3,7 @@ package be.ucll.da.Model;
 import be.ucll.da.Implementation.SandwichConverter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -14,13 +14,13 @@ public class Order {
     private UUID id;
     @Convert(converter = SandwichConverter.class)
     private Sandwich sandwich;
-    private Date orderdate;
+    private LocalDate orderdate;
     private BreadType breadType;
     private String phoneNumber;
 
     public Order() {}
 
-    public Order(Sandwich sandwich, Date orderdate, BreadType breadType, String phoneNumber) {
+    public Order(Sandwich sandwich, LocalDate orderdate, BreadType breadType, String phoneNumber) {
         this.sandwich = sandwich;
         this.orderdate = orderdate;
         this.breadType = breadType;
@@ -43,11 +43,11 @@ public class Order {
         this.sandwich = sandwich;
     }
 
-    public Date getOrderdate() {
+    public LocalDate getOrderdate() {
         return orderdate;
     }
 
-    public void setOrderdate(Date orderdate) {
+    public void setOrderdate(LocalDate orderdate) {
         this.orderdate = orderdate;
     }
 

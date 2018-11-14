@@ -9,8 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootApplication
@@ -18,6 +23,14 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+    @Configuration
+    @EnableWebMvc
+    public class WebConfig implements WebMvcConfigurer{
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**");
+        }
     }
     @Bean
     public CommandLineRunner SandwichesCommandLineRunner(SandwichRepository sandwichRepository){
@@ -34,7 +47,7 @@ public class Application {
     @Bean
     public CommandLineRunner OrderCommandLineRunner(OrderRepository orderrepository){
         return (args) -> {
-            orderrepository.save(new Order(new Sandwich("Martino",new BigDecimal(2.50),"Martino,Ansjovis,Augurk,Ajuin,PikanteSaus"), new Date(), BreadType.WRAP,"046848695"));
+            orderrepository.save(new Order(new Sandwich("Martino",new BigDecimal(2.50),"Martino,Ansjovis,Augurk,Ajuin,PikanteSaus"), LocalDate.of(1996,7,13), BreadType.WRAP,"046848695"));
         };
     }
 }
