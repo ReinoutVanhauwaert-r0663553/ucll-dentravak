@@ -13,18 +13,19 @@ public class Sandwich {
     private UUID id;
     private String name;
     private BigDecimal price;
-    private String ingredienten;
+    private String ingredients;
 
 
     public  Sandwich(){
 
     }
-    public Sandwich(String name, BigDecimal price, String ingredienten) {
+    public Sandwich(String name, BigDecimal price, String ingredients) {
         this.name = name;
         this.price = price;
-        this.ingredienten = ingredienten;
+        this.ingredients = ingredients;
 
     }
+
     public String getName() {
         return name;
     }
@@ -41,12 +42,12 @@ public class Sandwich {
         this.price = price;
     }
 
-    public String getIngredienten() {
-        return ingredienten;
+    public String getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredienten(String ingredienten) {
-        this.ingredienten = ingredienten;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public UUID getId() {
