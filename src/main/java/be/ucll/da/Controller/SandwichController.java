@@ -14,38 +14,34 @@ import java.util.stream.StreamSupport;
 public class SandwichController {
 
     @Autowired
-    private SandwichRepository sandwichrepository;
+    private SandwichRepository sandwichRepository;
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.GET)
     public List<Sandwich> getSandwiches() {
-
-        return StreamSupport.stream(sandwichrepository.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream(sandwichRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
     @ResponseBody
     public Sandwich postSandwiches(@RequestBody Sandwich sandwich) {
-
-        return sandwichrepository.save(sandwich);
-        //return new Sandwich(sandwich);
+        return sandwichRepository.save(sandwich);
     }
+    
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Sandwich getSandwichesById(@PathVariable UUID id) {
-
-        return sandwichrepository.findById(id).get();
-        //return new Sandwich(sandwich);
+        return sandwichRepository.findById(id).get();
     }
+
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public Sandwich putSandwichesById(@PathVariable UUID id,@RequestBody Sandwich sandwich) {
         if(id.equals(sandwich.getId())) {
-            Sandwich oldsandwich = getSandwichesById(id);
-            oldsandwich = sandwich;
-            return sandwichrepository.save(oldsandwich);
+            Sandwich oldSandwich = getSandwichesById(id);
+            oldSandwich = sandwich;
+            return sandwichRepository.save(oldSandwich);
         }else{
             throw new IllegalArgumentException("don't do that... stop!");
         }
-        //return new Sandwich(sandwich);
     }
 }

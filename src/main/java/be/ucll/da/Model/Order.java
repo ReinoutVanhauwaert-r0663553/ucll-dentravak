@@ -1,9 +1,16 @@
 package be.ucll.da.Model;
 
-import be.ucll.da.Implementation.SandwichConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -12,19 +19,27 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Convert(converter = SandwichConverter.class)
-    private Sandwich sandwich;
-    private LocalDate orderdate;
+    //@Convert(converter = SandwichConverter.class)
+    //private Sandwich sandwich;
+    private String sandwichId;
+    private String name;
+    private BigDecimal price;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime creationDate;
     private BreadType breadType;
-    private String phoneNumber;
+    private String mobilePhoneNumber;
 
-    public Order() {}
+    public Order() {
+        this.creationDate = LocalDateTime.now();
+    }
 
-    public Order(Sandwich sandwich, LocalDate orderdate, BreadType breadType, String phoneNumber) {
-        this.sandwich = sandwich;
-        this.orderdate = orderdate;
+    public Order(String sandwichId, String name, BigDecimal price, LocalDateTime creationDate, BreadType breadType, String mobilePhoneNumber) {
+        this.sandwichId = sandwichId;
+        this.name = name;
+        this.price = price;
+        this.creationDate = creationDate;
         this.breadType = breadType;
-        this.phoneNumber = phoneNumber;
+        this.mobilePhoneNumber = mobilePhoneNumber;
     }
 
     public UUID getId() {
@@ -35,20 +50,36 @@ public class Order {
         this.id = id;
     }
 
-    public Sandwich getSandwich() {
-        return sandwich;
+    public String getSandwichId() {
+        return sandwichId;
     }
 
-    public void setSandwich(Sandwich sandwich) {
-        this.sandwich = sandwich;
+    public void setSandwichId(String sandwichId) {
+        this.sandwichId = sandwichId;
     }
 
-    public LocalDate getOrderdate() {
-        return orderdate;
+    public String getName() {
+        return name;
     }
 
-    public void setOrderdate(LocalDate orderdate) {
-        this.orderdate = orderdate;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public BreadType getBreadType() {
@@ -59,12 +90,12 @@ public class Order {
         this.breadType = breadType;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
     }
 
 }

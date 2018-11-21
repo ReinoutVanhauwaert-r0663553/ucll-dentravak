@@ -1,7 +1,7 @@
 package be.ucll.da.Model;
 
 public enum BreadType {
-    TURKISHBREAD("Turkish Bread"),WRAP("Wrap"),BOTERHAMMEKE("Boterhammeke");
+    TURKISHBREAD("Turkish Bread"),WRAP("Wrap"),BOTERHAMMEKES("Boterhammekes");
 
 
 
