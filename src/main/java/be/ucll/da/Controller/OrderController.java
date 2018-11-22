@@ -2,12 +2,11 @@ package be.ucll.da.Controller;
 
 import be.ucll.da.Database.OrderRepository;
 import be.ucll.da.Model.Order;
-import jdk.nashorn.internal.runtime.CodeStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,25 +19,29 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public List<Order> getOrders() {
-        return StreamSupport.stream(orderRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    public List<Order> getOrders(@RequestParam(name = "date", required = false) String date) {
+        List<Order> orders;
+
+        if (date != null && !date.trim().isEmpty()) {
+            orders = new ArrayList<Order>();
+            String[] dateParts = date.split("-");
+
+            for (Order order : orderRepository.findAll()) {
+                if (order.getCreationDate().getYear() == Integer.parseInt(dateParts[0])
+                        && order.getCreationDate().getMonthValue() == Integer.parseInt(dateParts[1])
+                        && order.getCreationDate().getDayOfMonth() == Integer.parseInt(dateParts[2])) {
+                    orders.add(order);
+                }
+            }
+        } else {
+            orders = StreamSupport.stream(orderRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        }
+
+        return orders;
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public Order postOrders(@RequestBody Order order) {
-        //order.setCreationDate(LocalDateTime.now());
         return orderRepository.save(order);
     }
-//    @RequestMapping(value = "/orders")
-//    public List<Order> postOrders(@RequestParam("date") String date) {
-//        List<Order> orders = new ArrayList<Order>();
-//        String[] dateparts = date.split("-");
-//        LocalDate givendate = LocalDate.of(Integer.parseInt(dateparts[0]),Integer.parseInt(dateparts[1]),Integer.parseInt(dateparts[2]));
-//        for (Order order: orderrepository.findAll()) {
-//            if(order.getOrderdate().equals(givendate)){
-//                orders.add(order);
-//            }
-//        }
-//        return orders;
-//    }
 }
