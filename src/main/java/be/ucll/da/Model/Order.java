@@ -21,7 +21,7 @@ public class Order {
     private UUID id;
     //@Convert(converter = SandwichConverter.class)
     //private Sandwich sandwich;
-    private String sandwichId;
+    private UUID sandwichId;
     private String name;
     private BigDecimal price;
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
@@ -33,7 +33,7 @@ public class Order {
         this.creationDate = LocalDateTime.now();
     }
 
-    public Order(String sandwichId, String name, BigDecimal price, LocalDateTime creationDate, BreadType breadType, String mobilePhoneNumber) {
+    public Order(UUID sandwichId, String name, BigDecimal price, LocalDateTime creationDate, BreadType breadType, String mobilePhoneNumber) {
         this.sandwichId = sandwichId;
         this.name = name;
         this.price = price;
@@ -50,11 +50,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getSandwichId() {
+    public UUID getSandwichId() {
         return sandwichId;
     }
 
-    public void setSandwichId(String sandwichId) {
+    public void setSandwichId(UUID sandwichId) {
         this.sandwichId = sandwichId;
     }
 
