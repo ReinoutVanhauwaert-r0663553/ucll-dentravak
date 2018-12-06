@@ -3,4 +3,4 @@
 gradle
 out
 !gradlew
-gradlew.bat
+!gradlew.bat
