@@ -37,9 +37,9 @@ public class SandwichController {
     @ResponseBody
     public Sandwich putSandwichesById(@PathVariable UUID id,@RequestBody Sandwich sandwich) {
         if(id.equals(sandwich.getId())) {
-            Sandwich oldSandwich = getSandwichesById(id);
-            oldSandwich = sandwich;
-            return sandwichRepository.save(oldSandwich);
+            //Sandwich oldSandwich = getSandwichesById(id);
+            //oldSandwich = sandwich;
+            return sandwichRepository.save(sandwich);
         }else{
             throw new IllegalArgumentException("don't do that... stop!");
         }
