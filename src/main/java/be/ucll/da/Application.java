@@ -29,8 +29,9 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+
+    //@EnableWebMvc
     @Configuration
-    @EnableWebMvc
     public class WebConfig implements WebMvcConfigurer{
         @Override
         public void addCorsMappings(CorsRegistry registry) {

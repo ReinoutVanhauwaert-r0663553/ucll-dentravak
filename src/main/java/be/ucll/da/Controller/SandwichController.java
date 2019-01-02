@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 @RestController
 public class SandwichController {
 
-   /* @Autowired
-    private DiscoveryClient discoveryClient;*/
+    //@Autowired
+    //private DiscoveryClient discoveryClient;
 
     @Autowired
     private SandwichRepository repository;
@@ -29,6 +29,11 @@ public class SandwichController {
 
     @Autowired
     private SandwichRepository sandwichRepository;
+
+    /*@RequestMapping(value = "/", method = RequestMethod.GET)
+    public String hello() {
+        return "hello";
+    }*/
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.GET)
     public List<Sandwich> getSandwiches() {
