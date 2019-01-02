@@ -38,16 +38,16 @@ public class Application {
         }
     }
 
-    @Bean
+   /* @Bean
     public CommandLineRunner SandwichesCommandLineRunner(SandwichRepository sandwichRepository){
         return (args) -> {
-            sandwichRepository.save(new Sandwich("Martino",new BigDecimal(2.50),"Martino,Ansjovis,Augurk,Ajuin,PikanteSaus"));
-            sandwichRepository.save(new Sandwich("Smos",new BigDecimal(2.50),"Kaas,Hesp,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
-            sandwichRepository.save(new Sandwich("Kaas",new BigDecimal(2.50),"Kaas,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
-            sandwichRepository.save(new Sandwich("Hesp",new BigDecimal(2.50),"Hesp,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
-            sandwichRepository.save(new Sandwich("Brie",new BigDecimal(2.50),"Brie"));
+            //sandwichRepository.save(new Sandwich("Martino",new BigDecimal(2.50),"Martino,Ansjovis,Augurk,Ajuin,PikanteSaus"));
+            //sandwichRepository.save(new Sandwich("Smos",new BigDecimal(2.50),"Kaas,Hesp,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
+            //sandwichRepository.save(new Sandwich("Kaas",new BigDecimal(2.50),"Kaas,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
+            //sandwichRepository.save(new Sandwich("Hesp",new BigDecimal(2.50),"Hesp,Sla,Tomaat,Eitjes,Worteltjes,Mayonaiss"));
+            //sandwichRepository.save(new Sandwich("Brie",new BigDecimal(2.50),"Brie"));
         };
-    }
+    }*/
 
     @Bean
     public CommandLineRunner OrderCommandLineRunner(OrderRepository orderRepository){
