@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+//import org.springframework.cloud.client.discovery.DiscoveryClient;
 
 import javax.naming.ServiceUnavailableException;
 import java.net.URI;
@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 @RestController
 public class SandwichController {
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
+   /* @Autowired
+    private DiscoveryClient discoveryClient;*/
 
     @Autowired
     private SandwichRepository repository;
@@ -29,11 +29,6 @@ public class SandwichController {
 
     @Autowired
     private SandwichRepository sandwichRepository;
-
-    /*@RequestMapping(value = "/", method = RequestMethod.GET)
-    public String hello() {
-        return "hello";
-    }*/
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.GET)
     public List<Sandwich> getSandwiches() {
@@ -96,17 +91,11 @@ public class SandwichController {
                 .getBody();
     }
 
-//    public Optional<URI> recommendationServiceUrl() {
-//        try {
-//            return Optional.of(new URI("http://localhost:8081"));
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-public Optional<URI> recommendationServiceUrl() {
-    return discoveryClient.getInstances("recommendation")
-            .stream()
-            .map(si -> si.getUri())
-            .findFirst();
-}
+    public Optional<URI> recommendationServiceUrl() {
+        try {
+            return Optional.of(new URI("http://localhost:8081"));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
