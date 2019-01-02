@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-//import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 
 import javax.naming.ServiceUnavailableException;
 import java.net.URI;
@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 @RestController
 public class SandwichController {
 
-   /* @Autowired
-    private DiscoveryClient discoveryClient;*/
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @Autowired
     private SandwichRepository repository;
