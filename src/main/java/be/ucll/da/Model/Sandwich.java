@@ -15,15 +15,14 @@ public class Sandwich {
     private BigDecimal price;
     private String ingredients;
 
-
     public  Sandwich(){
 
     }
+
     public Sandwich(String name, BigDecimal price, String ingredients) {
         this.name = name;
         this.price = price;
         this.ingredients = ingredients;
-
     }
 
     public String getName() {

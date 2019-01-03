@@ -8,8 +8,9 @@ import javax.management.Attribute;
 import javax.persistence.AttributeConverter;
 import java.io.IOException;
 
-public class SandwichConverter implements AttributeConverter<Sandwich,String>{
+public class SandwichConverter implements AttributeConverter<Sandwich, String> {
     private final static ObjectMapper om = new ObjectMapper();
+
     @Override
     public String convertToDatabaseColumn(Sandwich sandwhichtobeconvertedtojson) {
         try{

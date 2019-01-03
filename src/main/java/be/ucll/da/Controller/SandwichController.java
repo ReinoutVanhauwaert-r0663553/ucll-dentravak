@@ -27,9 +27,6 @@ public class SandwichController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private SandwichRepository sandwichRepository;
-
     @RequestMapping(value = "/sandwiches", method = RequestMethod.GET)
     public List<Sandwich> getSandwiches() {
         //return StreamSupport.stream(sandwichRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -45,41 +42,36 @@ public class SandwichController {
     }
 
     public List<Sandwich> sortByPreferences(SandwichPreferences preferences, List<Sandwich> allSandwiches) {
-        System.out.println(allSandwiches);
         Collections.sort(allSandwiches, (Sandwich s1, Sandwich s2) -> rating(preferences, s2).compareTo(rating(preferences, s1)));
         return allSandwiches;
     }
 
     private Float rating(SandwichPreferences preferences, Sandwich s2) {
-        System.out.println(s2);
-        System.out.println(preferences);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return preferences.getRatingForSandwich(s2.getId());
     }
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
     @ResponseBody
     public Sandwich postSandwiches(@RequestBody Sandwich sandwich) {
-        return sandwichRepository.save(sandwich);
+        return repository.save(sandwich);
     }
     
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Sandwich getSandwichesById(@PathVariable UUID id) {
-        return sandwichRepository.findById(id).get();
+        return repository.findById(id).get();
     }
 
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public Sandwich putSandwichesById(@PathVariable UUID id,@RequestBody Sandwich sandwich) {
         if(id.equals(sandwich.getId())) {
-            //Sandwich oldSandwich = getSandwichesById(id);
-            //oldSandwich = sandwich;
-            return sandwichRepository.save(sandwich);
+            return repository.save(sandwich);
         }else{
             throw new IllegalArgumentException("don't do that... stop!");
         }
     }
+
     // why comment: for testing
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
@@ -98,4 +90,11 @@ public class SandwichController {
             throw new RuntimeException(e);
         }
     }
+
+   //  public Optional<URI> recommendationServiceUrl() {
+   //      return discoveryClient.getInstances("recommendation")
+   //              .stream()
+   //              .map(si -> si.getUri())
+   //              .findFirst();
+   //  }
 }
