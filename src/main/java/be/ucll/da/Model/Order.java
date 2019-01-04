@@ -28,6 +28,7 @@ public class Order {
     private LocalDateTime creationDate;
     private BreadType breadType;
     private String mobilePhoneNumber;
+    private boolean printed;
 
     public Order() {
         this.creationDate = LocalDateTime.now();
@@ -40,6 +41,7 @@ public class Order {
         this.creationDate = creationDate;
         this.breadType = breadType;
         this.mobilePhoneNumber = mobilePhoneNumber;
+        this.printed = false;
     }
 
     public UUID getId() {
@@ -96,6 +98,14 @@ public class Order {
 
     public void setMobilePhoneNumber(String mobilePhoneNumber) {
         this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public boolean isPrinted() {
+        return printed;
+    }
+
+    public void setPrinted(boolean printed) {
+        this.printed = printed;
     }
 
 }

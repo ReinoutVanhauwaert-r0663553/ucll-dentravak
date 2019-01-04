@@ -44,4 +44,16 @@ public class OrderController {
     public Order postOrders(@RequestBody Order order) {
         return orderRepository.save(order);
     }
+
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public Order ptOrderById(@PathVariable UUID id, @RequestBody Order order) {
+        if(id.equals(order.getId())) {
+            order.setPrinted(true);
+            return repository.save(order);
+        }else{
+            throw new IllegalArgumentException("don't do that... stop!");
+        }
+    }
+
 }
