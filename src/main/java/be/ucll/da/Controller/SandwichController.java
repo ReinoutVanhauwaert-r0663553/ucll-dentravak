@@ -27,32 +27,16 @@ public class SandwichController {
     private RestTemplate restTemplate;
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.GET)
-    public List<Sandwich> getSandwiches() {
-        //return StreamSupport.stream(sandwichRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    public List<Sandwich> getSandwiches(@RequestParam(name = "phoneNumber", required = false) String phoneNumber) {
         try {
-            SandwichPreferences preferences = getPreferences("0476832381");
-            //TODO: sort allSandwiches by float in preferences
+            SandwichPreferences preferences = getPreferences(phoneNumber);
             List<Sandwich> allSandwiches = repository.findAll();
-            allSandwiches = sortByPreferences(preferences,allSandwiches);
+            allSandwiches = sortByPreferences(preferences, allSandwiches);
             return allSandwiches;
         } catch (Exception e) {
+            system.out.println(e);
             return repository.findAll();
         }
-    }
-
-    public List<Sandwich> sortByPreferences(SandwichPreferences preferences, List<Sandwich> allSandwiches) {
-        Collections.sort(allSandwiches, (Sandwich s1, Sandwich s2) -> rating(preferences, s2).compareTo(rating(preferences, s1)));
-        return allSandwiches;
-    }
-
-    private Float rating(SandwichPreferences preferences, Sandwich s2) {
-        return preferences.getRatingForSandwich(s2.getId());
-    }
-
-    @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
-    @ResponseBody
-    public Sandwich postSandwiches(@RequestBody Sandwich sandwich) {
-        return repository.save(sandwich);
     }
     
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.GET)
@@ -61,9 +45,15 @@ public class SandwichController {
         return repository.findById(id).get();
     }
 
+    @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
+    @ResponseBody
+    public Sandwich postSandwiches(@RequestBody Sandwich sandwich) {
+        return repository.save(sandwich);
+    }
+
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public Sandwich putSandwichesById(@PathVariable UUID id,@RequestBody Sandwich sandwich) {
+    public Sandwich putSandwichesById(@PathVariable UUID id, @RequestBody Sandwich sandwich) {
         if(id.equals(sandwich.getId())) {
             return repository.save(sandwich);
         }else{
@@ -95,5 +85,15 @@ public class SandwichController {
                 .stream()
                 .map(si -> si.getUri())
                 .findFirst();
+    }
+
+    // Sort sandwiches by preferences
+    public List<Sandwich> sortByPreferences(SandwichPreferences preferences, List<Sandwich> allSandwiches) {
+        Collections.sort(allSandwiches, (Sandwich s1, Sandwich s2) -> rating(preferences, s2).compareTo(rating(preferences, s1)));
+        return allSandwiches;
+    }
+
+    private Float rating(SandwichPreferences preferences, Sandwich s2) {
+        return preferences.getRatingForSandwich(s2.getId());
     }
 }
