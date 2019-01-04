@@ -64,6 +64,8 @@ public class SandwichController {
     // why comment: for testing
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
+        System.out.println(emailAddress);
+        System.out.println(recommendationServiceUrl());
         URI service = recommendationServiceUrl()
                 .map(s -> s.resolve("/recommend/" + emailAddress))
                 .orElseThrow(ServiceUnavailableException::new);
