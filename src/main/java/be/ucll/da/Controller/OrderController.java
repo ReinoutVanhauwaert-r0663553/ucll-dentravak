@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class OrderController {
     public Order ptOrderById(@PathVariable UUID id, @RequestBody Order order) {
         if(id.equals(order.getId())) {
             order.setPrinted(true);
-            return repository.save(order);
+            return orderRepository.save(order);
         }else{
             throw new IllegalArgumentException("don't do that... stop!");
         }
