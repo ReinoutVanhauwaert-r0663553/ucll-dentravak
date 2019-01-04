@@ -67,6 +67,7 @@ public class SandwichController {
         URI service = recommendationServiceUrl()
                 .map(s -> s.resolve("/recommend/" + emailAddress))
                 .orElseThrow(ServiceUnavailableException::new);
+        System.out.printLn(service);
         return restTemplate
                 .getForEntity(service, SandwichPreferences.class)
                 .getBody();
@@ -81,10 +82,6 @@ public class SandwichController {
    //  }
 
     public Optional<URI> recommendationServiceUrl() {
-        List<String> services = (discoveryClient.getServices());
-        for(String s: services) {
-            System.out.println(s);
-        }
         return discoveryClient.getInstances("recommendation")
                 .stream()
                 .map(si -> si.getUri())
