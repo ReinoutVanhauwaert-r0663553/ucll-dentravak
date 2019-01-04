@@ -34,7 +34,7 @@ public class SandwichController {
             allSandwiches = sortByPreferences(preferences, allSandwiches);
             return allSandwiches;
         } catch (Exception e) {
-            system.out.println(e);
+            System.out.println(e);
             return repository.findAll();
         }
     }
