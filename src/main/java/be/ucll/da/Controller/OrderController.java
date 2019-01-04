@@ -43,6 +43,7 @@ public class OrderController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public Order postOrders(@RequestBody Order order) {
+        order.creationDate = Date.now();
         return orderRepository.save(order);
     }
 
