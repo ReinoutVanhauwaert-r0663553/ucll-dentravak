@@ -19,17 +19,6 @@ services:
       - "traefik.frontend.rule=PathPrefixStrip:/consul/"
       - "traefik.frontend.rule=PathPrefix:/ui/,/v1/"
 
-  den-travak:
-    image: den-travak-app:0.0.1-SNAPSHOT
-    restart: unless-stopped
-    depends_on:
-      - consul
-    ports:
-      - 8234:8080
-    labels:
-      - "traefik.port=8080"
-      - "traefik.frontend.rule=PathPrefix:/den-travak/"
-
   recommendation:
     image: recommendation-app:0.0.1-SNAPSHOT
     restart: unless-stopped
@@ -40,3 +29,14 @@ services:
     labels:
       - "traefik.port=8081"
       - "traefik.frontend.rule=PathPrefix:/recommendation/"
+
+  den-travak:
+    image: den-travak-app:0.0.1-SNAPSHOT
+    restart: unless-stopped
+    depends_on:
+      - consul
+    ports:
+      - 8234:8080
+    labels:
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefix:/den-travak/"
